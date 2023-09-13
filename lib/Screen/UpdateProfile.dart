@@ -601,7 +601,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         child: ElevatedButton(
                           onPressed: () {
                            selected != '' ?editap(): buildErrorDialog(
-                                context, '', "Please select Gender");
+                                context, 'Field Error', "Please select Gender");
                           },
 
                           style: ElevatedButton.styleFrom(
@@ -648,6 +648,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
           authprovider().profileupdateapi(data).then((response) async {
             updateprofilemodal =
                 UpdateProfileModal.fromJson(json.decode(response.body));
+            print(response.body);
+            print(response.statusCode);
+            print(updateprofilemodal?.status);
             if (response.statusCode == 200 &&
                 updateprofilemodal?.status == "success") {
               update(context, '', 'Profile Updated Successfully',

@@ -232,7 +232,7 @@ update(BuildContext context, String title, String contant,
         child: Text(buttonname ?? 'OK',
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontSize: 15.sp,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.bold,
                 color: Color(0xffb4776e6),
                 decorationColor: Colors.black,

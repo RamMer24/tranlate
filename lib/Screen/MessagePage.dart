@@ -165,7 +165,7 @@ class _MessagePageState extends State<MessagePage> {
                           Container(
 
                             width: MediaQuery.of(context).size.width,
-                            height: 85.h,
+                            height: 75.h,
                             child: chatviewmodal?.status == "false"
                                 ? Center(
                                     child: Text(
@@ -181,7 +181,7 @@ class _MessagePageState extends State<MessagePage> {
                                       Container(
 
                                         width: MediaQuery.of(context).size.width,
-                                        height: 75.h,
+                                        height: 70.h,
                                         child: ListView.builder(
                                           shrinkWrap: true,
                                           reverse: true,
@@ -513,134 +513,135 @@ class _MessagePageState extends State<MessagePage> {
                                     ],
                                   ),
                           ),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 2.w,
+                                  ),
+                                  GestureDetector(
+                                      onTap: () {
+                                        selectfile();
+                                      },
+                                      child: Icon(
+                                        Icons.attach_file,
+                                        size: 23.sp,
+                                      )),
+                                  SizedBox(
+                                    width: 2.w,
+                                  ),
+                                  Container(
+                                    height: 7.h,
+                                    // margin: EdgeInsets.all(5),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 5,
+                                      horizontal: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(
+                                          30,
+                                        ),
+                                        border: Border.all(color: Colors.black)),
+                                    child: Row(
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            FocusScope.of(context).unfocus();
+                                            setState(() {
+                                              _showemoji = !_showemoji;
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.emoji_emotions_sharp,
+                                            color: Color(0xff246bfb),
+                                          ),
+                                        ),
+                                        // SizedBox(
+                                        //   width: 3.w,
+                                        //),
+                                        Container(
+                                          width: 52.w,
+                                          child: TextFormField(
+                                            keyboardType: TextInputType.text,
+                                            controller: _sendmess,
+                                            style: TextStyle(
+                                              fontSize: 15.sp,
+                                            ),
+                                            onTap: () {
+                                              if (_showemoji) ;
+                                              setState(() {
+                                                _showemoji = false;
+                                              });
+                                            },
+                                            decoration: InputDecoration(
+                                              contentPadding: EdgeInsets.symmetric(
+                                                  vertical: 1.35.h),
+                                              hintText: "message",
+                                              border: InputBorder.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 2.w,
+                                  ),
+                                  (isloading)
+                                      ? CircularProgressIndicator()
+                                      : Container(
+                                    height: 5.5.h,
+                                    width: 12.w,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xff246bfb),
+                                      borderRadius: BorderRadius.circular(
+                                        50,
+                                      ),
+                                    ),
+                                    child: IconButton(
+                                        onPressed: (){
+                                          setState((){
+                                            send = true;
+                                            type = 1;
+                                          });
+                                          mesapi();
+                                        },
+                                        icon: Icon(
+                                          Icons.send,
+                                          color: Colors.white,
+                                          size: 6.w,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                              (_showemoji)
+                                  ? SizedBox(
+                                height: MediaQuery.of(context).size.height * .35,
+                                child: EmojiPicker(
+                                  textEditingController: _sendmess,
+                                  config: Config(
+                                    columns: 7,
+                                    // emojiSizeMax: 32 * (Platform.isIOS? 1.30 : 1.0),
+                                  ),
+                                ),
+                              )
+                                  : SizedBox(
+                                height: 1.5.h,
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
 
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 2.w,
-                              ),
-                              GestureDetector(
-                                  onTap: () {
-                                    selectfile();
-                                  },
-                                  child: Icon(
-                                    Icons.attach_file,
-                                    size: 23.sp,
-                                  )),
-                              SizedBox(
-                                width: 2.w,
-                              ),
-                              Container(
-                                height: 7.h,
-                                // margin: EdgeInsets.all(5),
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 5,
-                                  horizontal: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(
-                                      30,
-                                    ),
-                                    border: Border.all(color: Colors.black)),
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        FocusScope.of(context).unfocus();
-                                        setState(() {
-                                          _showemoji = !_showemoji;
-                                        });
-                                      },
-                                      icon: Icon(
-                                        Icons.emoji_emotions_sharp,
-                                        color: Color(0xff246bfb),
-                                      ),
-                                    ),
-                                    // SizedBox(
-                                    //   width: 3.w,
-                                    //),
-                                    Container(
-                                      width: 52.w,
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.text,
-                                        controller: _sendmess,
-                                        style: TextStyle(
-                                          fontSize: 15.sp,
-                                        ),
-                                        onTap: () {
-                                          if (_showemoji) ;
-                                          setState(() {
-                                            _showemoji = false;
-                                          });
-                                        },
-                                        decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 1.35.h),
-                                          hintText: "message",
-                                          border: InputBorder.none,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 2.w,
-                              ),
-                              (isloading)
-                                  ? CircularProgressIndicator()
-                                  : Container(
-                                      height: 5.5.h,
-                                      width: 12.w,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xff246bfb),
-                                        borderRadius: BorderRadius.circular(
-                                          50,
-                                        ),
-                                      ),
-                                      child: IconButton(
-                                          onPressed: (){
-                                            setState((){
-                                              send = true;
-                                              type = 1;
-                                            });
-                                            mesapi();
-                                          },
-                                          icon: Icon(
-                                            Icons.send,
-                                            color: Colors.white,
-                                            size: 6.w,
-                                          )),
-                                    ),
-                            ],
-                          ),
-                          (_showemoji)
-                              ? SizedBox(
-                                  height: MediaQuery.of(context).size.height * .35,
-                                  child: EmojiPicker(
-                                    textEditingController: _sendmess,
-                                    config: Config(
-                                      columns: 7,
-                                      // emojiSizeMax: 32 * (Platform.isIOS? 1.30 : 1.0),
-                                    ),
-                                  ),
-                                )
-                              : SizedBox(
-                                  height: 1.5.h,
-                                ),
-                        ],
-                      ),
-                    ),
+                    // Positioned(
+                    //   bottom: 0.0,
+                    //   left: 0.0,
+                    //   child:
+                    // ),
                   ])),
       ),
     );

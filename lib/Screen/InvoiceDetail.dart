@@ -77,9 +77,8 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                 ),
 
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                )
-            ),
+                  borderRadius: BorderRadius.circular(30.0),
+                )),
           ],
         ),
         body: SingleChildScrollView(

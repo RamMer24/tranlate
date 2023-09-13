@@ -601,7 +601,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         child: ElevatedButton(
                           onPressed: () {
                            selected != '' ?editap(): buildErrorDialog(
-                                context, 'Field Error', "Please select Gender");
+                                context, '', "Please select Gender");
                           },
 
                           style: ElevatedButton.styleFrom(

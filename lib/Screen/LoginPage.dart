@@ -243,7 +243,7 @@ class _LoginPageState extends State<LoginPage> {
           authprovider().loginapi(data).then(( response) async {
             usermodal = UserModal.fromJson(json.decode(response.body));
             if (response.statusCode == 200 && usermodal?.status == "success") {
-           // print('EE Thay Gyu Hooooo ! ^_^');
+
      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>MainPage()));
               SaveDataLocal.saveLogInData(usermodal!);
 
@@ -260,7 +260,7 @@ class _LoginPageState extends State<LoginPage> {
           setState(() {
             // isLoading = false;
           });
-          buildErrorDialog(context, 'Error', "Internet Required");
+          buildErrorDialog(context, '', "Internet Required");
         }
       });
     }

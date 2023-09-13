@@ -708,7 +708,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
           print(invoicedetailmodal?.status);
           if (response.statusCode == 200 &&
               invoicedetailmodal?.status == "success") {
-            print('EE Thay Gyu Hooooo ! ^_^');
+
 
             setState(() {
               isLoading = false;
@@ -726,7 +726,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
     });
   }
 
-  Future<void> downloaddata() async {
+    Future<void> downloaddata() async {
     final pdf = pw.Document();
     final pageWidth = PdfPageFormat.a4.width;
     final pageHeight = 1000.0;
@@ -761,7 +761,9 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
     } catch (e) {}
   }
 
-  Future<pw.Font> yourFont() async {
+
+
+    Future<pw.Font> yourFont() async {
     final fontData = await rootBundle
         .load('assets/fonts/.ttf'); // Replace with your font file path
     final fontUint8List = fontData.buffer.asUint8List();
@@ -770,15 +772,24 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
     return font;
   }
 
-  Future<pw.MemoryImage> loadImageFromAsset(String assetPath) async {
+
+
+    Future<pw.MemoryImage> loadImageFromAsset(String assetPath) async {
     final ByteData data = await rootBundle.load(assetPath);
     final Uint8List bytes = data.buffer.asUint8List();
     return pw.MemoryImage(Uint8List.fromList(bytes));
   }
 
-  Future<List<int>> fetchImage(String imageUrl) async {
+
+
+
+    Future<List<int>> fetchImage(String imageUrl) async {
     var http;
     final response = await http.get(Uri.parse(imageUrl));
     return response.bodyBytes;
   }
+
+
+
+
 }

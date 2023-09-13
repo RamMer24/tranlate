@@ -271,6 +271,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   fontWeight: FontWeight.bold),
                             ),
                             TextFormField(
+                              readOnly: true,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Please Enter Email";
@@ -694,7 +695,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
             setState(() {
               isLoading = false;
               _username.text = viewProfileModal?.clientData?.userName ?? "";
-
               _phone.text = viewProfileModal?.clientData?.mobile ?? "";
               _loction.text = viewProfileModal?.clientData?.address ?? "";
               _email.text = viewProfileModal?.clientData?.email ?? "";

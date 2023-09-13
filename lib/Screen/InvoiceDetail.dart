@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pdf/pdf.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tranlate/Modals/InvoiceDetailModal.dart';
 import 'package:tranlate/Provider/authprovider.dart';
@@ -8,7 +11,7 @@ import 'package:tranlate/Widget/buildErrorDialog.dart';
 import 'package:tranlate/Widget/const.dart';
 import 'package:tranlate/Widget/drawer.dart';
 import 'package:tranlate/Widget/loader.dart';
-
+import 'package:pdf/widgets.dart' as pw;
 
 class InvoiceDetail extends StatefulWidget {
   String? id;
@@ -59,6 +62,26 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
       scaffold: Scaffold(
         key: _scaffoldKey,
         drawer: drawer1(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: Color(0xff246bfb),
+                child: Icon(
+                  Icons.download_sharp,
+                  size: 25.sp,
+                  color: Colors.white,
+                ),
+
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0),
+                )
+            ),
+          ],
+        ),
         body: SingleChildScrollView(
           child: isLoading
               ? Container()
@@ -295,15 +318,15 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                                       padding: EdgeInsets.only(right: 2.h),
                                       child: Text(
                                         invoicedetailmodal?.invoiceData
-                                            ?.taskDescription ==
-                                            '' ||
-                                            invoicedetailmodal?.invoiceData
-                                                ?.taskDescription ==
-                                                null
+                                                        ?.taskDescription ==
+                                                    '' ||
+                                                invoicedetailmodal?.invoiceData
+                                                        ?.taskDescription ==
+                                                    null
                                             ? 'N/A'
-                                            : invoicedetailmodal
-                                            ?.invoiceData?.taskDescription ??
-                                            '',
+                                            : invoicedetailmodal?.invoiceData
+                                                    ?.taskDescription ??
+                                                '',
                                         style: TextStyle(
                                             fontSize: 14.sp,
                                             fontFamily: 'task',
@@ -688,7 +711,6 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
               invoicedetailmodal?.status == "success") {
             print('EE Thay Gyu Hooooo ! ^_^');
 
-
             setState(() {
               isLoading = false;
             });
@@ -703,5 +725,61 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
         buildErrorDialog(context, '', "Internet Required");
       }
     });
+  }
+
+  Future<void> downloaddata() async {
+    final pdf = pw.Document();
+    final pageWidth = PdfPageFormat.a4.width;
+    final pageHeight = 1000.0;
+
+    final imageProvider = await loadImageFromAsset(
+      'assets/flags.jpg',
+    );
+    final imageProvider1 = await loadImageFromAsset('assets/footer.png');
+    final imageProvider2 = await loadImageFromAsset('assets/japan.png');
+    final imageProvider3 = await loadImageFromAsset('assets/logo.png');
+    final imageProvider4 = await loadImageFromAsset('assets/backimg.png');
+    final imageProvider5 = await loadImageFromAsset('assets/to.jpg');
+
+    final pdfWidget = pw.Padding(
+      padding: pw.EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      child: pw.Column(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+      ),
+    );
+    pdf.addPage(pw.Page(
+      pageFormat: PdfPageFormat(pageWidth, pageHeight),
+      build: (pw.Context context) => pdfWidget,
+    ));
+    const downloadsFolderPath = '/storage/emulated/0/Download';
+
+    Directory dir = Directory(downloadsFolderPath);
+    final String filePath = '${dir?.path}/App Pdf.pdf';
+    print(filePath);
+    final File file = File(filePath!);
+    try {
+      await file.writeAsBytes(await pdf.save());
+    } catch (e) {}
+  }
+
+  Future<pw.Font> yourFont() async {
+    final fontData = await rootBundle
+        .load('assets/fonts/.ttf'); // Replace with your font file path
+    final fontUint8List = fontData.buffer.asUint8List();
+    final fontByteData = ByteData.sublistView(fontUint8List);
+    final font = pw.Font.ttf(fontByteData);
+    return font;
+  }
+
+  Future<pw.MemoryImage> loadImageFromAsset(String assetPath) async {
+    final ByteData data = await rootBundle.load(assetPath);
+    final Uint8List bytes = data.buffer.asUint8List();
+    return pw.MemoryImage(Uint8List.fromList(bytes));
+  }
+
+  Future<List<int>> fetchImage(String imageUrl) async {
+    var http;
+    final response = await http.get(Uri.parse(imageUrl));
+    return response.bodyBytes;
   }
 }

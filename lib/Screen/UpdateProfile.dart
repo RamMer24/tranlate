@@ -341,6 +341,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+
                       SizedBox(
                         width: 3.w,
                       ),
@@ -498,7 +499,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   ),
                                   TextFormField(
                                     keyboardType: TextInputType.number,
-
                                     // validator: (value) {
                                     //   if (value!.isEmpty) {
                                     //     return "Please Enter The Number";
@@ -531,7 +531,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                           fontFamily: "task"),
 
                                     ),
-
                                   ),
                                 ],
                               ),

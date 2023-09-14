@@ -493,12 +493,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   ),
                                   TextFormField(
                                     keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Please Enter The Number";
-                                      }
-                                      return null;
-                                    },
+
+                                    // validator: (value) {
+                                    //   if (value!.isEmpty) {
+                                    //     return "Please Enter The Number";
+                                    //   }
+                                    //   return null;
+                                    // },
+
                                     controller: _phone,
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -556,12 +558,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                   TextFormField(
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "Please Enter The Address";
-                                      }
-                                      return null;
-                                    },
+                                    // validator: (value) {
+                                    //   if (value!.isEmpty) {
+                                    //     return "Please Enter The Address";
+                                    //   }
+                                    //   return null;
+                                    // },
                                     controller: _loction,
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
@@ -602,7 +604,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         child: ElevatedButton(
                           onPressed: () {
                            selected != '' ?editap(): buildErrorDialog(
-                                context, 'Field Error', "Please select Gender");
+                                context, '', "Please select Gender");
                           },
 
                           style: ElevatedButton.styleFrom(
@@ -665,8 +667,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 isLoading = false;
               });
             } else {
-              buildErrorDialog(
-                  context, '', "This Email Is Already Registered");
+              // buildErrorDialog(
+              //     context, '', "This Email Is Already Registered");
             }
           });
         } else {

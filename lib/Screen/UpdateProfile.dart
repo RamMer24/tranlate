@@ -135,6 +135,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     )
                   ],
                 ),
+
+
+
+
                 // Padding(
                 //   padding: const EdgeInsets.symmetric(horizontal: 25),
                 //   child: Row(
@@ -176,6 +180,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 //   ),
                 // ),
 
+
                 SizedBox(
                   height: 3.5.h,
                 ),
@@ -214,12 +219,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   fontWeight: FontWeight.bold),
                             ),
                             TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please Enter The User Name";
-                                }
-                                return null;
-                              },
+
                               controller: _username,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(

@@ -60,6 +60,8 @@ dependencies:
   path_provider:
   path:
 #  camera:
+  flutter_svg:
+  permission_handler:
 
 
 dev_dependencies:

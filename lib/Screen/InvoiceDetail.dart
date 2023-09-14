@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' ;
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tranlate/Modals/InvoiceDetailModal.dart';
 import 'package:tranlate/Provider/authprovider.dart';
+import 'package:tranlate/Screen/TaskList.dart';
 import 'package:tranlate/Widget/buildErrorDialog.dart';
 import 'package:tranlate/Widget/const.dart';
 import 'package:tranlate/Widget/drawer.dart';
@@ -68,7 +70,11 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  print("data");
+                  downloaddata();
+
+                },
                 backgroundColor: Color(0xff246bfb),
                 child: Icon(
                   Icons.download_sharp,
@@ -684,6 +690,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                               SizedBox(
                                 width: 1.w,
                               ),
+
                             ],
                           ),
                         ),
@@ -727,32 +734,613 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
   }
 
     Future<void> downloaddata() async {
+      invoicedetailapi();
     final pdf = pw.Document();
     final pageWidth = PdfPageFormat.a4.width;
-    final pageHeight = 1000.0;
-
-    final imageProvider = await loadImageFromAsset(
-      'assets/flags.jpg',
-    );
-    final imageProvider1 = await loadImageFromAsset('assets/footer.png');
-    final imageProvider2 = await loadImageFromAsset('assets/japan.png');
-    final imageProvider3 = await loadImageFromAsset('assets/logo.png');
-    final imageProvider4 = await loadImageFromAsset('assets/backimg.png');
-    final imageProvider5 = await loadImageFromAsset('assets/to.jpg');
+    // final pageHeight = 1000.0;
+      final imageProvider = await loadImageFromAsset('img/logot.jpeg');
+    // final imageProvider = await loadImageFromAsset(
+    //   'assets/japan.png',
+    // );
+    // final imageProvider1 = await loadImageFromAsset('assets/footer.png');
+    // final imageProvider2 = await loadImageFromAsset('assets/japan.png');
+    // final imageProvider3 = await loadImageFromAsset('assets/logo.png');
+    // final imageProvider4 = await loadImageFromAsset('assets/backimg.png');
+    // final imageProvider5 = await loadImageFromAsset('assets/to.jpg');
 
     final pdfWidget = pw.Padding(
-      padding: pw.EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+      padding: pw.EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: pw.Column(
-        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+
+          pw.SizedBox(
+            height: 5
+          ),
+        pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          children: [
+            pw.Container(
+              width: 150,
+              height: 150,
+              decoration: pw.BoxDecoration(
+                image: pw.DecorationImage(
+                  image: imageProvider,
+                  fit: pw.BoxFit.cover,
+                ),
+              ),),
+            pw.Text(
+              "Invoice",
+              style:
+              pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold),
+            ),
+
+          ]
+        ),
+          pw.SizedBox(
+              height: 5
+          ),
+
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            children: [
+              pw.Row(
+                children: [
+                  pw.Text(
+                    " Invoice Date ",
+                    style: pw.TextStyle(
+                        fontSize: 12,
+                        fontWeight: pw.FontWeight.bold,
+                        // fontFamily: 'task',
+                        letterSpacing: 1,
+                        color: PdfColors.black),
+                  ),
+                ],
+              ),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.center,
+                crossAxisAlignment: pw.CrossAxisAlignment.center,
+                children: [
+                  pw.Text(
+                      invoicedetailmodal?.invoiceData?.dueDate ==
+                          '' ||
+                          invoicedetailmodal
+                              ?.invoiceData?.dueDate ==
+                              null
+                          ? 'N/A'
+                          : invoicedetailmodal
+                          ?.invoiceData?.dueDate ??
+                          '',
+                      style: pw.TextStyle(
+                          color: PdfColors.black,
+                          fontSize: 12,
+                          fontWeight: pw.FontWeight.normal,
+                          // fontFamily: "task")
+                        ),
+                  )
+                ],
+              ),
+            ],
+          ),
+
+          pw.SizedBox(
+            height: 5
+          ),
+
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+            children: [
+              pw.Row(
+                children: [
+                  pw.Text(
+                    " Invoice Number ",
+                    style: pw.TextStyle(
+                        fontSize: 12,
+                        fontWeight: pw.FontWeight.bold,
+                        // fontFamily: 'task',
+                        letterSpacing: 1,
+                        color: PdfColors.black),
+                  ),
+                ],
+              ),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.center,
+                crossAxisAlignment: pw.CrossAxisAlignment.center,
+                children: [
+                  pw.Text(
+                    invoicedetailmodal?.invoiceData
+                        ?.invoiceNumber ==
+                        '' ||
+                        invoicedetailmodal?.invoiceData
+                            ?.invoiceNumber ==
+                            null
+                        ? 'N/A'
+                        : invoicedetailmodal?.invoiceData
+                        ?.invoiceNumber ??
+                        '',
+                    style: pw.TextStyle(
+                        fontSize: 12,
+                        // fontFamily: 'task',
+                        color:  PdfColors.black,
+                      fontWeight: pw.FontWeight.normal,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+
+          pw.SizedBox(
+            height: 5,
+          ),
+
+          pw.Container(
+            decoration: pw.BoxDecoration(
+              borderRadius: pw.BorderRadius.circular(30),
+              color:  PdfColors.white,
+            ),
+            child: pw.Padding(
+              padding: pw.EdgeInsets.symmetric(
+                  vertical: 10, horizontal: 15),
+              child: pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Expanded(
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(
+                          "Task Title",
+                          style: pw.TextStyle(
+                              fontSize: 12,
+                              fontWeight: pw.FontWeight.bold,
+                              // fontFamily: 'task',
+                              letterSpacing: 2,
+                              color:  PdfColors.black),
+                        ),
+                        pw.Container(
+                          // padding: pw.EdgeInsets.only(left: 0.5.h),
+                          child: pw.Text(
+                            invoicedetailmodal?.invoiceData
+                                ?.taskName ==
+                                '' ||
+                                invoicedetailmodal?.invoiceData
+                                    ?.taskName ==
+                                    null
+                                ? 'N/A'
+                                : invoicedetailmodal
+                                ?.invoiceData?.taskName ??
+                                '',
+                            style: pw.TextStyle(
+                                fontSize: 12,
+                                // fontFamily: 'task',
+                                color: PdfColors.black
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          pw.SizedBox(
+            height: 5
+          ),
+
+          pw.Container(
+            decoration: pw.BoxDecoration(
+              borderRadius: pw.BorderRadius.circular(30),
+              color:  PdfColors.white,
+            ),
+            margin: pw.EdgeInsets.symmetric(horizontal: 15),
+            child: pw.Row(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text(
+                        "About Task",
+                        style: pw.TextStyle(
+                            fontSize: 12,
+                            fontWeight: pw.FontWeight.bold,
+                            // fontFamily: 'task',
+                            letterSpacing: 2,
+                            color: PdfColors.black),
+                      ),
+                      pw.Container(
+                        // padding: pw.EdgeInsets.only(right: 2.h),
+                        child: pw.Text(
+                          invoicedetailmodal?.invoiceData
+                              ?.taskDescription ==
+                              '' ||
+                              invoicedetailmodal?.invoiceData
+                                  ?.taskDescription ==
+                                  null
+                              ? 'N/A'
+                              : invoicedetailmodal?.invoiceData
+                              ?.taskDescription ??
+                              '',
+                          style: pw.TextStyle(
+                              fontSize:12,
+                              // fontFamily: 'task',
+                              color: PdfColors.black),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          pw.SizedBox(
+            height: 2.h
+          ),
+          pw.Container(
+            decoration: pw.BoxDecoration(
+              borderRadius: pw.BorderRadius.circular(30),
+              color:  PdfColors.white,
+            ),
+            child: pw.Padding(
+              padding: pw.EdgeInsets.symmetric(
+                  vertical: 10, horizontal:15),
+              child: pw.Row(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Expanded(
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(
+                          "Status",
+                          style: pw.TextStyle(
+                              fontSize: 12,
+                              fontWeight: pw.FontWeight.bold,
+                              // fontFamily: 'task',
+                              letterSpacing: 2,
+                              color:  PdfColors.black),
+                        ),
+                        pw.Container(
+                          // padding: pw.EdgeInsets.only(left: 0.5.h),
+                          child:  pw.Text(
+                            invoicedetailmodal
+                                ?.invoiceData?.status ==
+                                '1'
+                                ? "Paid"
+                                : "Unpaid",
+                            style: pw.TextStyle(
+                              fontSize: 12,
+                              // fontFamily: 'task',
+                              fontWeight: pw.FontWeight.bold,
+                              color: invoicedetailmodal
+                                  ?.invoiceData?.status ==
+                                  '1'
+                                  ? PdfColors.green200
+                                  : PdfColors.red200,
+                            ),
+                          ),
+                          ),
+
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+                pw.SizedBox(
+                  height: 5
+                ),
+        pw.Container(
+
+
+          child:pw.Table(
+            border: pw.TableBorder.all(),
+              defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
+              columnWidths:{0: pw.FractionColumnWidth(.5),1: pw.FractionColumnWidth(.5),2: pw.FractionColumnWidth(.5),},
+            children: [
+              pw.TableRow(
+
+                  decoration: pw.BoxDecoration(
+                color: PdfColors.grey100
+              ),
+                children:[
+                  pw.Container(
+                    alignment: pw.Alignment.center,
+                    height: 60,
+                    child:    pw.Text("Working Hours",
+                        textAlign: pw.TextAlign.center,
+                        style: pw.TextStyle(
+                            fontSize: 12, fontWeight: pw.FontWeight.bold)),
+                  ),
+                  pw.Container(
+                    alignment: pw.Alignment.center,
+                      height: 60,
+                  child:     pw.Text("Amount",
+                      textAlign: pw.TextAlign.center,
+                      style: pw.TextStyle(
+                          fontSize:12, fontWeight: pw.FontWeight.bold)),
+                  ),
+
+                  pw.Container(
+                    alignment: pw.Alignment.center,
+                      height: 60,
+                  child:   pw.Text("Total Hours",
+                      textAlign: pw.TextAlign.center,
+                      style: pw.TextStyle(
+                          fontSize: 12, fontWeight: pw.FontWeight.bold)),
+                  )
+
+
+
+                ]
+              ),
+              pw.TableRow(
+
+                  decoration: pw.BoxDecoration(
+                      color: PdfColors.white
+
+                  ),
+                  children: [
+                    pw.Container(
+                      alignment: pw.Alignment.center,
+                        height: 60,
+                child:  pw.Text(
+                  invoicedetailmodal?.invoiceData
+                      ?.totalTime ==
+                      '' ||
+                      invoicedetailmodal
+                          ?.invoiceData
+                          ?.totalTime ==
+                          null
+                      ? 'N/A'
+                      : (invoicedetailmodal
+                      ?.invoiceData
+                      ?.totalTime)
+                      .toString() +
+                      ' Hour',
+                  textAlign: pw.TextAlign.center,
+                  style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.normal,
+                    fontSize: 12,
+                    // fontFamily: "task"
+                  ),
+                ),
+                    ),
+
+                    pw.Container(
+                      alignment: pw.Alignment.center,
+                        height: 60,
+                    child:  pw.Text(
+                      invoicedetailmodal?.invoiceData
+                          ?.taskAmount ==
+                          '' ||
+                          invoicedetailmodal
+                              ?.invoiceData
+                              ?.taskAmount ==
+                              null
+                          ? 'N/A'
+                          : '\$ ' +
+                          (invoicedetailmodal
+                              ?.invoiceData
+                              ?.taskAmount)
+                              .toString() +
+                          '/h',
+                      textAlign: pw.TextAlign.center,
+                      style: pw.TextStyle(
+                        fontWeight: pw.FontWeight.normal,
+                        fontSize: 12,
+                        // pw.fontFamily: "task"
+                      ),), ),
+
+                    pw.Container(
+                      alignment: pw.Alignment.center,
+                        height: 60,
+                        child: pw.Text(
+                          invoicedetailmodal
+                              ?.invoiceData
+                              ?.totalTime ==
+                              null ||
+                              invoicedetailmodal
+                                  ?.invoiceData
+                                  ?.totalTime ==
+                                  ""
+                              ? "N/A"
+                              : (invoicedetailmodal
+                              ?.invoiceData
+                              ?.totalTime)
+                              .toString() +
+                              " Hour",
+                          textAlign: pw.TextAlign.center,
+                          style: pw.TextStyle(
+                              fontSize: 12,
+                              // fontFamily: "task",
+                              fontWeight:
+                              pw.FontWeight.normal),
+                        ), )
+
+              ])
+
+            ]
+          ),
+
+          // child:   pw.Column(
+          //   crossAxisAlignment: pw.CrossAxisAlignment.start,
+          //   mainAxisAlignment: pw.MainAxisAlignment.start,
+          //   children: [
+          //     pw.Row(
+          //       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          //       children: [
+          //         pw.Text("Working Hours",
+          //             style: pw.TextStyle(
+          //                 fontSize: 17.sp, fontWeight: pw.FontWeight.bold)),
+          //
+          //         pw.Text("Amount",
+          //             style: pw.TextStyle(
+          //                 fontSize: 17.sp, fontWeight: pw.FontWeight.bold)),
+          //
+          //         pw.Text("Total Hours",
+          //             style: pw.TextStyle(
+          //                 fontSize: 17.sp, fontWeight: pw.FontWeight.bold)),
+          //
+          //       ],
+          //     ),
+          //   ],
+          // ),
+        ),
+          pw.SizedBox(
+            height: 5,
+          ),
+
+    //       pw.Column(
+    //         mainAxisAlignment: pw.MainAxisAlignment.start,
+    //         children: [
+    //           pw.Row(
+    //             mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+    // //             children: [
+    // //               pw.Text(
+    // //       invoicedetailmodal?.invoiceData
+    // //           ?.totalTime ==
+    // //       '' ||
+    // //       invoicedetailmodal
+    // //           ?.invoiceData
+    // //           ?.totalTime ==
+    // //           null
+    // //           ? 'N/A'
+    // //               : (invoicedetailmodal
+    // //               ?.invoiceData
+    // //           ?.totalTime)
+    // //           .toString() +
+    // //           ' Hour',
+    // //   style: pw.TextStyle(
+    // //       fontWeight: pw.FontWeight.normal,
+    // //       fontSize: 19.sp,
+    // //       // fontFamily: "task"
+    // //     ),
+    // // ),
+    // //
+    // //               pw.Text(
+    // //                 invoicedetailmodal?.invoiceData
+    // //                     ?.taskAmount ==
+    // //                     '' ||
+    // //                     invoicedetailmodal
+    // //                         ?.invoiceData
+    // //                         ?.taskAmount ==
+    // //                         null
+    // //                     ? 'N/A'
+    // //                     : '\$ ' +
+    // //                     (invoicedetailmodal
+    // //                         ?.invoiceData
+    // //                         ?.taskAmount)
+    // //                         .toString() +
+    // //                     '/h',
+    // //                 style: pw.TextStyle(
+    // //                     fontWeight: pw.FontWeight.normal,
+    // //                     fontSize: 19.sp,
+    // //                     // pw.fontFamily: "task"
+    // //                 ),),
+    // //
+    // //               pw.Text(
+    // //                 invoicedetailmodal
+    // //                     ?.invoiceData
+    // //                     ?.totalTime ==
+    // //                     null ||
+    // //                     invoicedetailmodal
+    // //                         ?.invoiceData
+    // //                         ?.totalTime ==
+    // //                         ""
+    // //                     ? "N/A"
+    // //                     : (invoicedetailmodal
+    // //                     ?.invoiceData
+    // //                     ?.totalTime)
+    // //                     .toString() +
+    // //                     " Hour",
+    // //                 style: pw.TextStyle(
+    // //                     fontSize: 19.sp,
+    // //                     // fontFamily: "task",
+    // //                     fontWeight:
+    // //                     pw.FontWeight.normal),
+    // //               ),
+    // //
+    // //             ],
+    //           ),
+    //         ],
+    //       ),
+    //       pw.SizedBox(
+    //         height: 1.h,
+    //       ),
+    //       pw.Divider(
+    //         color: PdfColors.black,
+    //         height: 20,
+    //         thickness: 1.3,
+    //       ),
+          pw.SizedBox(
+            height: 5
+          ),
+          pw.Column(
+            mainAxisAlignment: pw.MainAxisAlignment.end,
+            children: [
+              pw.SizedBox(
+                child: pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.end,
+                  children: [
+                    pw.SizedBox(
+                        width: 195,
+                        child: pw.Text("Total Amount",
+                            style: pw.TextStyle(
+                                fontSize: 12,
+                                fontWeight: pw.FontWeight.normal))),
+                    pw.Text(
+                      '\$ ' +
+                          (invoicedetailmodal
+                              ?.invoiceData
+                              ?.totalAmount)
+                              .toString(),
+                      style: pw.TextStyle(
+                          fontSize: 12,
+                          // fontFamily: "task",
+                          fontWeight:
+                          pw.FontWeight.bold),),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          pw.SizedBox(
+            height: 5
+          ),
+          pw.Row(
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              pw.Text(
+                  "Thank You !",
+                  style: pw.TextStyle(
+                      fontSize: 12,
+                      fontWeight:
+                      pw.FontWeight.bold
+                  )
+              ),
+            ]
+          )
+
+        ],
       ),
     );
     pdf.addPage(pw.Page(
-      pageFormat: PdfPageFormat(pageWidth, pageHeight),
+      // pageFormat: PdfPageFormat(pageWidth, pageHeight),
       build: (pw.Context context) => pdfWidget,
     ));
-    const downloadsFolderPath = '/storage/emulated/0/Download';
-
-    Directory dir = Directory(downloadsFolderPath);
+    // const downloadsFolderPath = '/storage/emulated/0/Download';
+    //
+    // Directory dir = Directory(downloadsFolderPath);
+      Directory dir =  await getApplicationDocumentsDirectory();
     final String filePath = '${dir?.path}/App Pdf.pdf';
     print(filePath);
     final File file = File(filePath!);
@@ -779,8 +1367,6 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
     final Uint8List bytes = data.buffer.asUint8List();
     return pw.MemoryImage(Uint8List.fromList(bytes));
   }
-
-
 
 
     Future<List<int>> fetchImage(String imageUrl) async {

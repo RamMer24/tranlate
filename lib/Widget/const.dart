@@ -9,8 +9,6 @@ import 'package:tranlate/Modals/LoginModal.dart';
 import 'package:tranlate/Modals/MessSendModal.dart';
 import 'package:tranlate/Modals/UpdateProfileModal.dart';
 import 'package:tranlate/Modals/ViewProfileModal.dart';
-
-
 import '../Modals/AddCommentModal.dart';
 import '../Modals/ChangepasswordModal.dart';
 import '../Modals/ChatListModal.dart';

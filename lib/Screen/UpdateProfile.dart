@@ -346,7 +346,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         width: 3.w,
                       ),
 
-
                       // Container(
                       //   width: 85.w,
                       //   child: Column(
@@ -417,7 +416,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       //       ],
                       //     ),
                       // )
-
 
 
                       Padding(
@@ -559,7 +557,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                         color: Colors.black87,
                                         fontFamily: "task",
                                         fontSize: 17.sp,
-                                        fontWeight: FontWeight.bold),
+                                        fontWeight: FontWeight.bold
+                                    ),
                                   ),
                                   TextFormField(
                                     // validator: (value) {

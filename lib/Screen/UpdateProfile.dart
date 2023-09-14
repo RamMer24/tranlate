@@ -344,6 +344,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       SizedBox(
                         width: 3.w,
                       ),
+
+
                       // Container(
                       //   width: 85.w,
                       //   child: Column(
@@ -414,6 +416,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       //       ],
                       //     ),
                       // )
+
+
+
                       Padding(
                         padding: EdgeInsets.only(left: 2.w),
                         child: Container(
@@ -632,6 +637,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
         ));
   }
 
+
   editap() {
     if (_formKey.currentState!.validate()) {
       final Map<String, String> data = {};
@@ -680,6 +686,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       });
     }
   }
+
 
   viewap() {
     final Map<String, String> data = {};

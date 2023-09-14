@@ -43,8 +43,10 @@ ChatListModal?chatlistmodal;
 SearchListModal?searchlistmodal;
 ChatViewModal?chatviewmodal;
 MessSendModal?messsendmodal;
-
 ChatListModal2?chatlistmodal2;
+
+
+
 
 Future<bool> checkInternet() async {
   var connectivityResult = await (Connectivity().checkConnectivity());

@@ -1346,8 +1346,4 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
     final response = await http.get(Uri.parse(imageUrl));
     return response.bodyBytes;
   }
-
-
-
-
 }

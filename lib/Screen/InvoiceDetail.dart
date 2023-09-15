@@ -1310,9 +1310,10 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
 
     const downloadsFolderPath = '/storage/emulated/0/Download';
 
-    Directory dir = Directory(downloadsFolderPath);
+    Directory dir = Platform.isAndroid?Directory(downloadsFolderPath): await getApplicationDocumentsDirectory();
       // Directory dir =  await getApplicationDocumentsDirectory();
-    final String filePath = '${dir?.path}/Invoice.pdf';
+    final String filePath = '${dir.path}/${invoicedetailmodal?.invoiceData?.invoiceNumber}.pdf';
+    print(filePath);
     final File file = File(filePath);
     try {
       await file.writeAsBytes(await pdf.save());

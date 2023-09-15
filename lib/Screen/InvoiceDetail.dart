@@ -1007,6 +1007,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
                 pw.SizedBox(
                   height: 20
                 ),
+
           invoicedetailmodal?.invoiceData?.taskType == '1'?
           pw.Table(
           border: pw.TableBorder.all(),
@@ -1166,6 +1167,8 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
           pw.SizedBox(
             height: 20,
           ),
+
+
 
     //       pw.Column(
     //         mainAxisAlignment: pw.MainAxisAlignment.start,

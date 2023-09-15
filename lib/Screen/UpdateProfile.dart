@@ -247,71 +247,71 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 1.h,
-                ),
-                SizedBox(
-                  width: 90.w,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 3.w,
-                      ),
-                      Container(
-                        width: 85.w,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Email",
-                              style: TextStyle(
-                                  color: Colors.black87,
-                                  fontFamily: "task",
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            TextFormField(
-                              readOnly: true,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Please Enter Email";
-                                } else {
-                                  bool emailValid = RegExp(
-                                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                      .hasMatch(value);
-                                  if (!emailValid) {
-                                    return "Invalid Email";
-                                  }
-                                }
-                                return null;
-                              },
-                              controller: _email,
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                hintText: 'Email',
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(0.6),
-                                    fontSize: 16.sp,
-                                    fontFamily: "task"),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // SizedBox(
+                //   height: 1.h,
+                // ),
+                // SizedBox(
+                //   width: 90.w,
+                //   child: Row(
+                //     children: [
+                //       SizedBox(
+                //         width: 3.w,
+                //       ),
+                //       Container(
+                //         width: 85.w,
+                //         child: Column(
+                //           crossAxisAlignment: CrossAxisAlignment.start,
+                //           children: [
+                //             Text(
+                //               "Email",
+                //               style: TextStyle(
+                //                   color: Colors.black87,
+                //                   fontFamily: "task",
+                //                   fontSize: 17.sp,
+                //                   fontWeight: FontWeight.bold),
+                //             ),
+                //             TextFormField(
+                //               readOnly: true,
+                //               validator: (value) {
+                //                 if (value!.isEmpty) {
+                //                   return "Please Enter Email";
+                //                 } else {
+                //                   bool emailValid = RegExp(
+                //                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                //                       .hasMatch(value);
+                //                   if (!emailValid) {
+                //                     return "Invalid Email";
+                //                   }
+                //                 }
+                //                 return null;
+                //               },
+                //               controller: _email,
+                //               decoration: InputDecoration(
+                //                 enabledBorder: OutlineInputBorder(
+                //                     borderRadius: BorderRadius.circular(30),
+                //                     borderSide: BorderSide(color: Colors.grey)),
+                //                 disabledBorder: OutlineInputBorder(
+                //                     borderRadius: BorderRadius.circular(30),
+                //                     borderSide: BorderSide(color: Colors.grey)),
+                //                 focusedBorder: OutlineInputBorder(
+                //                     borderRadius: BorderRadius.circular(30),
+                //                     borderSide: BorderSide(color: Colors.grey)),
+                //                 border: OutlineInputBorder(
+                //                     borderRadius: BorderRadius.circular(30),
+                //                     borderSide: BorderSide(color: Colors.grey)),
+                //                 hintText: 'Email',
+                //                 hintStyle: TextStyle(
+                //                     color: Colors.black.withOpacity(0.6),
+                //                     fontSize: 16.sp,
+                //                     fontFamily: "task"),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(
                   width: 90.w,
                   child: Row(
@@ -448,7 +448,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   borderSide: BorderSide(color: Colors.grey)),
                               // filled: true,
                               hintStyle: TextStyle(
-                                  // color: Colors.grey[800]
+
                                   ),
                               hintText: "Select your Gender",
                             ),

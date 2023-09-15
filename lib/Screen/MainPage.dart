@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
     // TODO: implement initState
 
     super.initState();
- viewap();
+       viewap();
   }
   @override
   Widget build(BuildContext context) {
@@ -68,8 +68,8 @@ class _MainPageState extends State<MainPage> {
                     Row(
                       children: [
                         Image.asset(
-                          "img/logo.png",
-                          width: 22.w,
+                          "img/logot.jpeg",
+                          width: 17.w,
                         ),
                         Text(
                           " Welcome! ",

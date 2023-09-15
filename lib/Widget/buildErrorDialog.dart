@@ -261,9 +261,10 @@ update(BuildContext context, String title, String contant,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 3.h,
+                  height: 2.5.h,
                 ),
                 (title != "")
                     ?Column(
@@ -274,7 +275,7 @@ update(BuildContext context, String title, String contant,
                               title,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 14.sp,
+                                  fontSize: 15.sp,
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   decorationColor: Colors.black,

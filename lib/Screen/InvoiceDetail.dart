@@ -737,7 +737,7 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
       invoicedetailapi();
 
 
-        // EasyLoading.show(status: 'Downloading...');
+        EasyLoading.show(status: 'Downloading...');
 
     final pdf = pw.Document();
     final pageWidth = PdfPageFormat.a4.width;
@@ -1253,6 +1253,8 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
     //         height: 5
     //       ),
 
+
+
           invoicedetailmodal?.invoiceData?.taskType == '1'?  pw.Column(
             mainAxisAlignment: pw.MainAxisAlignment.end,
             children: [
@@ -1305,19 +1307,20 @@ class _InvoiceDetailState extends State<InvoiceDetail> {
       // pageFormat: PdfPageFormat(pageWidth, pageHeight),
       build: (pw.Context context) => pdfWidget,
     ));
+
     const downloadsFolderPath = '/storage/emulated/0/Download';
 
     Directory dir = Directory(downloadsFolderPath);
       // Directory dir =  await getApplicationDocumentsDirectory();
     final String filePath = '${dir?.path}/Invoice.pdf';
-
-    final File file = File(filePath!);
+    final File file = File(filePath);
     try {
       await file.writeAsBytes(await pdf.save());
-      print(filePath);
 
-        EasyLoading.showSuccess(
-            'Pdf Downloaded');
+    setState(() {
+      EasyLoading.showSuccess(
+          'Pdf Downloaded');
+    });
 
     } catch (e) {}
   }
